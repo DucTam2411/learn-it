@@ -1,0 +1,30 @@
+# USER REGISTER
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+    "username" :"hello1",
+    "password" : "sieunhandienquang"
+}
+###
+
+# USER LOGIN 
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+    "username" :"hello1",
+    "password" : "sieunhandienquang"
+}
+###
+
+
+# CREATED NEW POST
+POST http://localhost:5000/api/posts
+Content-Type:  application/json
+
+{
+    "title" : "This is first post",
+    "description" : "abc",
+    "url" : "google.com"
+}
