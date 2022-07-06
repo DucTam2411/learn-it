@@ -4,10 +4,31 @@ const verifyToken = require("../middleware/auth");
 const router = express.Router();
 const Post = require("../models/Post");
 
+// @route GET api/posts
+// @desc Get  post
+// @access Private
+router.get("/", verifyToken, async (req, res) => {
+    try {
+        const posts = await Post.find({ user: req.userId }).populate("user", [
+            "username",
+        ]);
+        res.json({
+            success: true,
+            posts,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            success: false,
+            msg: "Internal server error",
+        });
+    }
+});
+
 // @route POST api/posts
 // @desc Create post
 // @access Private
-router.post("/", async (req, res) => {
+router.post("/", verifyToken, async (req, res) => {
     const { title, description, url, status } = req.body;
 
     // Simple validation
@@ -21,10 +42,10 @@ router.post("/", async (req, res) => {
     try {
         const newPost = new Post({
             title,
-            description,
-            url: url.startsWith("https://") ? url : `https://${url}`,
+            description: description || "",
+            url: url || url.startsWith("https://") ? url : `https://${url}`,
             status: status || "TO LEARN",
-            user: "62c4501ba93b04d6d20d92fc",
+            user: req.userId,
         });
         await newPost.save();
 
@@ -32,6 +53,99 @@ router.post("/", async (req, res) => {
             success: true,
             msg: "Happy learning",
             post: newPost,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            success: false,
+            msg: "Internal server error",
+        });
+    }
+});
+
+// @route PUT api/posts
+// @desc Update post
+// @access Private
+router.put("/:id", verifyToken, async (req, res) => {
+    const { title, description, url, status } = req.body;
+
+    // Simple validation
+    if (!title) {
+        return res.status(400).json({
+            success: false,
+            msg: "Title is required",
+        });
+    }
+
+    try {
+        let updatedPost = {
+            title,
+            description: description || "",
+            url: url || url.startsWith("https://") ? url : `https://${url}`,
+            status: status || "TO LEARN",
+        };
+
+        const postUpdateCondition = {
+            _id: req.params.id,
+            user: req.userId,
+        };
+
+        updatedPost = await Post.findOneAndUpdate(
+            postUpdateCondition,
+            updatedPost,
+            { new: true }
+        );
+
+        // User not authorized to update post for post not found
+        if (!updatedPost) {
+            return res.status(401).json({
+                success: false,
+                msg: "Post not found or user not authorized",
+            });
+        }
+
+        res.json({
+            success: true,
+            msg: "Excellent progress !",
+            post: updatedPost,
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            success: false,
+            msg: "Internal server error",
+        });
+    }
+});
+
+// @route DELETE api/posts
+// @desc Delete post
+// @access Private
+router.delete("/:id", verifyToken, async (req, res) => {
+    try {
+        const postDeleteCondition = {
+            _id: req.params.id,
+            user: req.userId,
+        };
+
+        let deletedPost = {};
+        deletedPost = await Post.findOneAndDelete(
+            postDeleteCondition,
+            deletedPost
+        );
+
+        // User not authorized to update post for post not found
+        if (!deletedPost) {
+            return res.status(401).json({
+                success: false,
+                msg: "Post not found or user not authorized",
+            });
+        }
+
+        res.json({
+            success: true,
+            msg: "Deleted Post !",
+            post: deletedPost,
         });
     } catch (error) {
         console.log(error);

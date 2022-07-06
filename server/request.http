@@ -3,7 +3,7 @@ POST http://localhost:5000/api/auth/register
 Content-Type: application/json
 
 {
-    "username" :"hello1",
+    "username" :"hello2",
     "password" : "sieunhandienquang"
 }
 ###
@@ -13,18 +13,46 @@ POST http://localhost:5000/api/auth/login
 Content-Type: application/json
 
 {
-    "username" :"hello1",
+    "username" :"hello2",
     "password" : "sieunhandienquang"
 }
 ###
 
 
-# CREATED NEW POST
+# CREATED  POST
 POST http://localhost:5000/api/posts
 Content-Type:  application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmM0NzJmNjBlMGQxMDQwNjczOWIxNTgiLCJpYXQiOjE2NTcwNDE2NjR9.kEWMwU2qWTAHIbt3HIm012C0aBTYUyFjQuJIv9NV084
 
 {
     "title" : "This is first post",
     "description" : "abc",
     "url" : "google.com"
 }
+###
+
+# GET POST
+GET  http://localhost:5000/api/posts
+Content-Type:  application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmM0NzJmNjBlMGQxMDQwNjczOWIxNTgiLCJpYXQiOjE2NTcwNDE2NjR9.kEWMwU2qWTAHIbt3HIm012C0aBTYUyFjQuJIv9NV084
+###
+
+# UPDATE POST
+PUT  http://localhost:5000/api/posts/62c472cf0e0d10406739b151
+Content-Type:  application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmM0NTAxYmE5M2IwNGQ2ZDIwZDkyZmMiLCJpYXQiOjE2NTcwNDA3ODF9.7LBs580RCxZUS3vQFsmtJ1bOy3Bb-kEWg9a9yfxwczI
+
+{
+      "title": "This is UPDATED 2 times  post",
+      "url": "google.com",
+      "description": "abc",
+      "status": "TO LEARN"
+}
+###
+
+# DELETE POST
+DELETE   http://localhost:5000/api/posts/62c47c6711096417ba155392
+Content-Type:  application/json
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmM0NzJmNjBlMGQxMDQwNjczOWIxNTgiLCJpYXQiOjE2NTcwNDE2NjR9.kEWMwU2qWTAHIbt3HIm012C0aBTYUyFjQuJIv9NV084
+
+###
