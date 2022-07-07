@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Landing from "./components/layout/Landing";
 import Auth from "./views/Auth";
 import AuthContextProvider from "./contexts/AuthContext";
+import Dashboard from "./views/Dashboard";
+import ProtectedRoute from "./components/routing/ProtectedRoute";
 
 function App() {
     return (
@@ -14,6 +16,10 @@ function App() {
                     <Route
                         path="/register"
                         element={<Auth authRoute="register" />}
+                    />
+                    <Route
+                        path="/dashboard"
+                        element={<ProtectedRoute element={<Dashboard />} />}
                     />
                 </Routes>
             </Router>

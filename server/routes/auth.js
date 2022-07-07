@@ -1,6 +1,7 @@
 const express = require("express");
 const argon2 = require("argon2");
 const jwt = require("jsonwebtoken");
+const verifyToken = require("../middleware/auth");
 
 const User = require("../models/User");
 const router = express.Router();
@@ -112,6 +113,30 @@ router.post("/login", async (req, res) => {
             success: false,
             msg: "Internal server error",
         });
+    }
+});
+
+// @route GET api/auth
+// @desc Check if user is logged in
+// @access Public
+router.get("/", verifyToken, async (req, res) => {
+    try {
+        const userId = req.userId;
+
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(400).json({
+                success: false,
+                msg: "User not found",
+            });
+        }
+        res.json({
+            success: true,
+            user,
+        });
+    } catch (error) {
+        console.log(error);
     }
 });
 
