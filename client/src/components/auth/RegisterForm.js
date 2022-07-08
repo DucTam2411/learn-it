@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Form } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import AlertMessage from "../layout/AlertMessage";
@@ -27,7 +27,6 @@ const RegisterForm = () => {
         });
 
     // Router
-    const history = useNavigate();
 
     const register = async (event) => {
         event.preventDefault();

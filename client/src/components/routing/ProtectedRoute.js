@@ -1,7 +1,8 @@
 import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthContext";
-import { Spinner } from "react-bootstrap";
+import { Navbar, Spinner } from "react-bootstrap";
+import NavBarMenu from "../layout/NavbarMenu";
 
 const ProtectedRoute = ({ element, ...rest }) => {
     const {
@@ -17,7 +18,14 @@ const ProtectedRoute = ({ element, ...rest }) => {
             </div>
         );
 
-    return isAuthenticated ? element : <Navigate to="/login" replace={true} />;
+    return isAuthenticated ? (
+        <>
+            <NavBarMenu />
+            {element}
+        </>
+    ) : (
+        <Navigate to="/login" replace={true} />
+    );
 };
 
 export default ProtectedRoute;
