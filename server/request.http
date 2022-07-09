@@ -27,7 +27,8 @@ Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmM0
 {
     "title" : "This is first post",
     "description" : "abc",
-    "url" : "google.com"
+    "url" : "google.com",
+    "status" :"LEARNING"
 }
 ###
 
@@ -46,7 +47,7 @@ Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MmM0
       "title": "This is UPDATED 2 times  post",
       "url": "google.com",
       "description": "abc",
-      "status": "TO LEARN"
+      "status": "LEARNING"
 }
 ###
 

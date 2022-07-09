@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useReducer } from "react";
 import { postReducer } from "../reducers/postReducer";
 import { apiUrl, POST_LOADED_FAIL, POST_LOADED_SUCCESS } from "./constants";
 import axios from "axios";
@@ -22,12 +22,9 @@ const PostContextProvider = ({ children }) => {
                 });
             }
         } catch (error) {
-            return error.response.data
-                ? error.response
-                : {
-                      success: false,
-                      message: "Server Error",
-                  };
+            dispatch({
+                type: POST_LOADED_FAIL,
+            });
         }
     };
 

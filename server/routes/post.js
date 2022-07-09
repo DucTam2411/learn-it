@@ -43,7 +43,11 @@ router.post("/", verifyToken, async (req, res) => {
         const newPost = new Post({
             title,
             description: description || "",
-            url: url || url.startsWith("https://") ? url : `https://${url}`,
+            url: url
+                ? url.startsWith("https://")
+                    ? url
+                    : `https://${url}`
+                : "",
             status: status || "TO LEARN",
             user: req.userId,
         });

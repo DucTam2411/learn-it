@@ -40,9 +40,8 @@
 
 /* Post button */
 .post-button {
-    padding-top: 0;
-    background: transparent;
-    border: none;
+    background: transparent !important;
+    border: none !important ;
 }
 
 .post-button:hover {
