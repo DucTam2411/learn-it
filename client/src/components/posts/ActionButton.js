@@ -11,10 +11,10 @@ const ActionButton = ({ url, _id }) => {
             <Button className="post-button" href={url} target="_blank">
                 <img src={playIcon} alt="play" width="32" height="32" />
             </Button>
-            <Button variant="primary" className="post-button" href={url}>
+            <Button variant="primary" className="post-button">
                 <img src={editIcon} alt="play" width="24" height="24" />
             </Button>
-            <Button className="post-button" href={url}>
+            <Button className="post-button">
                 <img src={deleteIcon} alt="play" width="24" height="24" />
             </Button>
         </>
