@@ -52,7 +52,6 @@ const PostContextProvider = ({ children }) => {
     // Find post when user is updating post
     const findPost = (postId) => {
         const post = postState.posts.find((post) => post._id === postId);
-        console.log("I FOUND POST", post);
 
         dispatch({
             type: FIND_POST,

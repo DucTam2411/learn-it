@@ -35,7 +35,6 @@ const AuthContextProvider = ({ children }) => {
                 });
             }
         } catch (error) {
-            console.log(error);
             localStorage.removeItem([LOCAL_STORAGE_TOKEN_NAME]);
             setAuthToken(null);
             dispatch({

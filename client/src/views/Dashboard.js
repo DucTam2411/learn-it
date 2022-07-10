@@ -97,7 +97,6 @@ const Dashboard = () => {
             </>
         );
     }
-    console.log(post);
     return (
         <>
             <AddPostModal />
@@ -124,7 +123,7 @@ const Dashboard = () => {
                 <Toast.Body>
                     <strong>Alert 🎉</strong>
                     <br />
-                    {message}.
+                    {message}
                 </Toast.Body>
             </Toast>
         </>

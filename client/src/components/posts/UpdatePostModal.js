@@ -3,7 +3,6 @@ import { Button, Form, Modal } from "react-bootstrap";
 import { PostContext } from "../../contexts/PostContext";
 
 export const UpdatePostModal = () => {
-    console.log("UPDATE POST MODAL");
     // Modal
     const {
         postState: { post },
