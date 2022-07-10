@@ -1,5 +1,5 @@
 # USER REGISTER
-POST http://localhost:5000/api/auth/register
+POST https://learn-it-mearn-stack.herokuapp.com/api/auth/register
 Content-Type: application/json
 
 {
