@@ -4,8 +4,6 @@ import ActionButton from "./ActionButton";
 import React from "react";
 
 const SinglePost = ({ post: { _id, status, title, description, url } }) => {
-    console.log(status === "LEARNED");
-
     let variantVar =
         status === "LEARNED"
             ? "success"

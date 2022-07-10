@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Form } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState, useContext } from "react";
 import { AuthContext } from "../../contexts/AuthContext";
 import AlertMessage from "../layout/AlertMessage";
@@ -10,8 +10,8 @@ const LoginForm = () => {
     const { loginUser } = useContext(AuthContext);
     const [alert, setAlert] = useState(null);
 
-    // Router
-    const history = useNavigate();
+    // // Router
+    // const history = useNavigate();
 
     const [loginForm, setLoginForm] = useState({
         username: "",

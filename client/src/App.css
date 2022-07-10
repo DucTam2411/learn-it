@@ -60,7 +60,7 @@ button.post-button.btn:focus,
 button.post-button.btn:active {
     outline: none;
     background: transparent;
-    border: none;
+    border: 2px #78c2ad97 solid !important;
     box-shadow: none;
 }
 
@@ -69,8 +69,8 @@ button.post-button.btn:active {
     position: fixed;
     right: 3rem;
     bottom: 3rem;
-    background: transparent;
-    border: none;
+    background: transparent !important;
+    border: none !important;
 }
 
 .btn-floating:hover {

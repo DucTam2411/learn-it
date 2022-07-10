@@ -1,16 +1,81 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useState } from "react";
 import { postReducer } from "../reducers/postReducer";
-import { apiUrl, POST_LOADED_FAIL, POST_LOADED_SUCCESS } from "./constants";
+import {
+    ADD_POST,
+    apiUrl,
+    DELETE_POST,
+    FIND_POST,
+    POST_LOADED_FAIL,
+    POST_LOADED_SUCCESS,
+    UPDATE_POST,
+} from "./constants";
 import axios from "axios";
 
 export const PostContext = createContext(null);
 const PostContextProvider = ({ children }) => {
     // State
     const [postState, dispatch] = useReducer(postReducer, {
+        post: null,
         posts: [],
         postsLoading: true,
     });
 
+    const [showAddPostModal, setShowAddPostModal] = useState(false);
+    const [showToast, setShowToast] = useState({
+        show: false,
+        message: "",
+        type: "success",
+    });
+    const [showUpdatePostModal, setShowUpdatePostModal] = useState(false);
+
+    // Add post
+    const addPost = async (newPost) => {
+        try {
+            const response = await axios.post(`${apiUrl}/posts`, newPost);
+            if (response.data.success) {
+                dispatch({
+                    type: ADD_POST,
+                    payload: response.data.post,
+                });
+                return response.data;
+            }
+        } catch (error) {
+            return error.response.data
+                ? error.response.data
+                : {
+                      success: false,
+                      msg: "Server error",
+                  };
+        }
+    };
+
+    // Find post when user is updating post
+    const findPost = (postId) => {
+        const post = postState.posts.find((post) => post._id === postId);
+        console.log("I FOUND POST", post);
+
+        dispatch({
+            type: FIND_POST,
+            payload: post,
+        });
+    };
+
+    // Delete post
+    const deletePost = async (postId) => {
+        try {
+            const response = await axios.delete(`${apiUrl}/posts/${postId}`);
+            if (response.data.success) {
+                dispatch({
+                    type: DELETE_POST,
+                    payload: postId,
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    // Get all posts
     const getPosts = async () => {
         try {
             const response = await axios.get(`${apiUrl}/posts`);
@@ -28,9 +93,43 @@ const PostContextProvider = ({ children }) => {
         }
     };
 
+    // Update post
+    const updatePost = async (updatePost) => {
+        try {
+            const response = await axios.put(
+                `${apiUrl}/posts/${updatePost._id}`,
+                updatePost
+            );
+            if (response.data.success) {
+                dispatch({
+                    type: UPDATE_POST,
+                    payload: response.data.post,
+                });
+                return response.data;
+            }
+        } catch (error) {
+            return error.response.data
+                ? error.response.data
+                : {
+                      success: false,
+                      msg: "Server error",
+                  };
+        }
+    };
+
     const postContextData = {
         postState,
         getPosts,
+        showAddPostModal,
+        setShowAddPostModal,
+        addPost,
+        setShowToast,
+        showToast,
+        deletePost,
+        showUpdatePostModal,
+        setShowUpdatePostModal,
+        updatePost,
+        findPost,
     };
 
     return (
